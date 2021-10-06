@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
-import { Feather, Ionicons, MaterialIcons } from 'react-native-vector-icons'
+import SettingsScreen from './screens/SettingsScreen';
+import { Feather,MaterialIcons,AntDesign } from 'react-native-vector-icons'
+import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
 
 export default function App() {
 
@@ -12,50 +13,58 @@ export default function App() {
 
   const Tabs= () => {
     return(
-      <Tab.Navigator initialRouteName={HomeScreen}>
-        <Tab.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={
-            {
-              headerShown: false,
-            }
-          }
-          tabBarIcon={<Feather name="home" size="24" />}
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={{ activeTintColor: "#51a6f5" }}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+          }} 
         />
-        <Tab.Screen 
-          name="Movies" 
-          component={HomeScreen} 
-          options={
-            {
-              headerShown: false,
-            }
-          }
-          tabBarIcon={<Feather name="home" size="24" />}
+        <Tab.Screen
+          name="ComingSoon"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <MaterialIcons name="video-library" size={24} color={color} /> ,
+          }}
         />
-        <Tab.Screen 
-          name="Coming Soon" 
-          component={HomeScreen} 
-          options={
-            {
-              headerShown: false,
-            }
-          }
-          tabBarIcon={<Feather name="home" size="24" />}
+        <Tab.Screen
+          name="Search"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <AntDesign name="search1" size={24} color={color} /> ,
+          }}
         />
-        <Tab.Screen 
-          name="Settings" 
-          component={HomeScreen} 
-          tabBarIcon={<Feather name="home" size="24" />}
+        <Tab.Screen
+          name="Downloads"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <AntDesign name="download" size={24} color={color} /> ,
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} /> ,
+          }}
         />
       </Tab.Navigator>
     )
   }
-
+  
   return (
-      <NavigationContainer>
+    // <ThemeProvider>
+
+    //
+    <NavigationContainer>
         <Tabs />
-      </NavigationContainer>
-  );
+        <StatusBar style='light' />
+    </NavigationContainer>
+      // {/* </ThemeProvider> */}
+  ); 
 }
 
