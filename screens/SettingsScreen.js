@@ -4,7 +4,7 @@ import {useUpdateTheme} from '../context/ThemeProvider'
 
 const SettingsScreen = () => {
 
-    const toggleTheme= useUpdateTheme()
+    // const toggleTheme= useUpdateTheme()
 
     const [text,setText] = useState('Light Mode');
 
@@ -12,7 +12,7 @@ const SettingsScreen = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity 
-                onPress={() => toggleTheme}
+                // onPress={() => toggleTheme}
                 style={{backgroundColor:"skyblue",margin:10,padding:10,borderRadius:20}}
             >
                 <Text style={{color:"white"}}>{text}</Text>

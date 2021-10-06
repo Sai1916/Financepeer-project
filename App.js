@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { Feather,MaterialIcons,AntDesign } from 'react-native-vector-icons'
 import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
+import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 
 export default function App() {
 
@@ -57,14 +58,10 @@ export default function App() {
   }
   
   return (
-    // <ThemeProvider>
-
-    //
-    <NavigationContainer>
+    <NavigationContainer theme={DarkTheme}>
         <Tabs />
         <StatusBar style='light' />
     </NavigationContainer>
-      // {/* </ThemeProvider> */}
   ); 
 }
 
