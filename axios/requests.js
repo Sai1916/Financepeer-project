@@ -25,8 +25,8 @@ const requests = [
         "title": "Horror",
         "url": `/discover/movie?api_key=${API_KEY}&with_genres=27`,
     },
-    {
-        "title": "Romance",
+    { 
+        "title": "Romance", 
         "url": `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
     },
     {

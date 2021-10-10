@@ -7,6 +7,8 @@ import SettingsScreen from './screens/SettingsScreen';
 import { Feather,MaterialIcons,AntDesign } from 'react-native-vector-icons'
 import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import MovieDetailScreen from './screens/MovieDetailScreen';
 
 export default function App() {
 
@@ -19,7 +21,7 @@ export default function App() {
         screenOptions={{ activeTintColor: "#51a6f5" }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStack}
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
@@ -56,6 +58,28 @@ export default function App() {
       </Tab.Navigator>
     )
   }
+
+  const Stack = createNativeStackNavigator();
+
+  const HomeStack = () => { 
+    return (
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen 
+          name="HomeScreen" 
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }} 
+        />
+        <Stack.Screen 
+          name="MovieDetailScreen" 
+          component={MovieDetailScreen}
+          options={({ route }) => ({ title: route?.params.name })}
+        />
+      </Stack.Navigator>
+    )
+  }
+
   
   return (
     <NavigationContainer theme={DarkTheme}>

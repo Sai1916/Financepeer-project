@@ -7,9 +7,9 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <ImageBackground 
+                <ImageBackground  
                     source={{
-                        uri: "https://image.tmdb.org/t/p/original//keIxh0wPr2Ymj0Btjh4gW7JJ89e.jpg"
+                        uri: "https://image.tmdb.org/t/p/original/keIxh0wPr2Ymj0Btjh4gW7JJ89e.jpg"
                     }}
                     style={{width:'100%',height:300,resizeMode:'cover'}}
                     >
