@@ -1,22 +1,41 @@
 import React,{useState} from 'react'
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
-import {useUpdateTheme} from '../context/ThemeProvider'
+import { StyleSheet, Text, View,TouchableOpacity, Alert } from 'react-native'
+// import {useUpdateTheme} from '../context/ThemeProvider'
+import {MaterialIcons} from 'react-native-vector-icons'
 
 const SettingsScreen = () => {
 
-    // const toggleTheme= useUpdateTheme()
-
-    const [text,setText] = useState('Light Mode');
-
+    const data =[
+        {
+            "text":"View Profile"
+        },
+        {
+            "text":"Change Password"
+        },
+        {
+            "text":"Switch Account"
+        },
+        {
+            "text":"Delete Account"
+        },
+        {
+            "text":"Support and Help"
+        },
+        {
+            "text":"Logout"
+        },
+    ]
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity 
-                // onPress={() => toggleTheme}
-                style={{backgroundColor:"skyblue",margin:10,padding:10,borderRadius:20}}
-            >
-                <Text style={{color:"white"}}>{text}</Text>
-            </TouchableOpacity>
+            {data.map((val,index) => (
+                <View style={{borderBottomWidth:0.3,borderBottomColor:"lightgray",padding:10}}>
+                    <TouchableOpacity key={index} onPress={() => Alert.alert(val.text)} style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                        <Text style={{color:"white",fontSize:18}}>{val.text}</Text>
+                        <MaterialIcons name="arrow-forward-ios" size={18} color="white" />
+                    </TouchableOpacity>
+                </View>
+            ))}
         </View>
     )
 }

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View,ScrollView, ImageBackground, TouchableOpacity } 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Movies from '../components/Movies'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -21,7 +21,7 @@ const HomeScreen = () => {
                         </View>
                     </View>
                 </ImageBackground>
-                <Movies />
+                <Movies navigation={navigation}/>
             </ScrollView>
         </SafeAreaView>
     )

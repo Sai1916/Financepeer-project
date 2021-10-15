@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import { Feather,MaterialIcons,AntDesign } from 'react-native-vector-icons'
+import { Feather,Ionicons,AntDesign } from 'react-native-vector-icons'
 import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -28,10 +28,10 @@ export default function App() {
           }} 
         />
         <Tab.Screen
-          name="ComingSoon"
+          name="Chat"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({ color }) => <MaterialIcons name="video-library" size={24} color={color} /> ,
+            tabBarIcon: ({ color }) => <Ionicons name="ios-chatbubble-ellipses-outline" size={24} color={color} /> ,
           }}
         />
         <Tab.Screen
@@ -74,7 +74,9 @@ export default function App() {
         <Stack.Screen 
           name="MovieDetailScreen" 
           component={MovieDetailScreen}
-          options={({ route }) => ({ title: route?.params.name })}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
     )
