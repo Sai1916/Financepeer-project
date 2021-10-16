@@ -29,8 +29,8 @@ const SettingsScreen = () => {
     return (
         <View style={styles.container}>
             {data.map((val,index) => (
-                <View style={{borderBottomWidth:0.3,borderBottomColor:"lightgray",padding:10}}>
-                    <TouchableOpacity key={index} onPress={() => Alert.alert(val.text)} style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                <View key={index} style={{borderBottomWidth:0.3,borderBottomColor:"lightgray",padding:10}}>
+                    <TouchableOpacity onPress={() => Alert.alert(val.text)} style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
                         <Text style={{color:"white",fontSize:18}}>{val.text}</Text>
                         <MaterialIcons name="arrow-forward-ios" size={18} color="white" />
                     </TouchableOpacity>

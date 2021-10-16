@@ -9,6 +9,8 @@ import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MovieDetailScreen from './screens/MovieDetailScreen';
+import SearchScreen from './screens/SearchScreen';
+import DownloadsScreen from './screens/DownloadsScreen';
 
 export default function App() {
 
@@ -36,14 +38,14 @@ export default function App() {
         />
         <Tab.Screen
           name="Search"
-          component={HomeScreen}
+          component={SearchScreen}
           options={{
             tabBarIcon: ({ color }) => <AntDesign name="search1" size={24} color={color} /> ,
           }}
         />
         <Tab.Screen
           name="Downloads"
-          component={HomeScreen}
+          component={DownloadsScreen}
           options={{
             tabBarIcon: ({ color }) => <AntDesign name="download" size={24} color={color} /> ,
           }}
