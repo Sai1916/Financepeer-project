@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { StyleSheet, Text, View,TouchableOpacity, Alert } from 'react-native'
 // import {useUpdateTheme} from '../context/ThemeProvider'
 import {MaterialIcons} from 'react-native-vector-icons'
+import {firebase} from '../firebase'
 
 const SettingsScreen = () => {
 
@@ -24,13 +25,27 @@ const SettingsScreen = () => {
         {
             "text":"Logout"
         },
-    ]
+    ];
+
+    const signOutHandle = (text) => {
+        try{
+            if(text === "Logout"){
+                firebase.auth().signOut();
+            }
+            else{
+                Alert.alert(text);
+            }
+        }
+        catch (error) {
+            Alert.alert(error.message)
+        }
+    }    
 
     return (
         <View style={styles.container}>
             {data.map((val,index) => (
                 <View key={index} style={{borderBottomWidth:0.3,borderBottomColor:"lightgray",padding:10}}>
-                    <TouchableOpacity onPress={() => Alert.alert(val.text)} style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                    <TouchableOpacity onPress={() => signOutHandle(val.text)} style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
                         <Text style={{color:"white",fontSize:18}}>{val.text}</Text>
                         <MaterialIcons name="arrow-forward-ios" size={18} color="white" />
                     </TouchableOpacity>

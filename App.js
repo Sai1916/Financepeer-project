@@ -1,25 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { Feather,Ionicons,AntDesign } from 'react-native-vector-icons'
-import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
+// import { ThemeProvider,useTheme, useUpdateTheme } from './context/ThemeProvider'
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MovieDetailScreen from './screens/MovieDetailScreen';
 import SearchScreen from './screens/SearchScreen';
 import DownloadsScreen from './screens/DownloadsScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import {firebase} from './firebase'
 
 export default function App() {
 
   const Tab = createBottomTabNavigator();
 
-  const Tabs= () => {
+  const LoggedInStack= () => {
     return(
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Login"
         screenOptions={{ activeTintColor: "#51a6f5" }}>
         <Tab.Screen
           name="Home"
@@ -31,7 +34,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Chat"
-          component={HomeScreen}
+          component={SearchScreen}
           options={{
             tabBarIcon: ({ color }) => <Ionicons name="ios-chatbubble-ellipses-outline" size={24} color={color} /> ,
           }}
@@ -84,10 +87,46 @@ export default function App() {
     )
   }
 
+  const LoginStack = () => {
+    return (
+      <Stack.Navigator initialRouteName="LoginScreen">
+        <Stack.Screen 
+          name="LoginScreen" 
+          component={LoginScreen} 
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen 
+          name="SignUpScreen" 
+          component={SignUpScreen} 
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    )
+  }
+
+  const [user,setUser] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        setUser(user)
+      }
+      else{
+        setUser(null)
+      }
+    })
+    return () => {
+      unsubscribe()
+    }
+  },[])
   
   return (
     <NavigationContainer theme={DarkTheme}>
-        <Tabs />
+      {user ? <LoggedInStack /> : <LoginStack />}
         <StatusBar style='light' />
     </NavigationContainer>
   ); 
