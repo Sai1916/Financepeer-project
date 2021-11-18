@@ -1,12 +1,27 @@
-import React from 'react'
-import { StyleSheet, Text, View,ScrollView, ImageBackground, TouchableOpacity } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { StyleSheet, Text, View,ScrollView, ImageBackground, TouchableOpacity, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Movies from '../components/Movies'
 
 const HomeScreen = ({navigation}) => {
+    const [refreshing,setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    });
+
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                }
+            >
                 <ImageBackground  
                     source={{
                         uri: "https://image.tmdb.org/t/p/original/keIxh0wPr2Ymj0Btjh4gW7JJ89e.jpg"

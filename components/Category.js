@@ -22,9 +22,6 @@ const Category = (props) => {
         getMoviesData()
       },[])
 
-    console.log(title)
-    console.log(movies)
-
     return (
         <View style={{marginHorizontal:5,marginVertical:10}}>
             <Text style={{color:"white",fontSize:20,fontWeight:"bold",marginVertical:5}}>{title}</Text>
