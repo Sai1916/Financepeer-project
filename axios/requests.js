@@ -1,4 +1,4 @@
-const API_KEY = "796582a8773b51fe608b5f4f0eef6d20";
+export const API_KEY = "796582a8773b51fe608b5f4f0eef6d20";
 
 const requests = [
     {
