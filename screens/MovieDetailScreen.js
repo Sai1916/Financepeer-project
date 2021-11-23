@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import {MaterialIcons,MaterialCommunityIcons} from 'react-native-vector-icons'
 import YoutubePlayer from "react-native-youtube-iframe";
+import { API_KEY } from '../axios/requests';
 
 const MovieDetailScreen = ({navigation,route}) => {
 
@@ -13,7 +13,6 @@ const MovieDetailScreen = ({navigation,route}) => {
     const [playTrailer,setPlayTrailer] = useState(false)
 
     const API_HEADER = "https://api.themoviedb.org/3";
-    const API_KEY = "796582a8773b51fe608b5f4f0eef6d20";
 
     const getMovieData = () => {
         return fetch(`${API_HEADER}/movie/${id}?api_key=${API_KEY}`)
@@ -79,25 +78,33 @@ const MovieDetailScreen = ({navigation,route}) => {
                             <Text style={{color:"black",fontSize:18,marginHorizontal:4,fontWeight:"bold"}}>Watch Movie</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={{color:"#acadad",fontSize:18}}>{movie.release_date}{'     '}{movie.status}</Text>
+                    <Text style={{color:"#acadad",fontSize:16}}>{movie.release_date}{'     '}{movie.status}</Text>
+                    {genres?.length>0 && (
+                        <ScrollView horizontal style={{flexDirection:"row"}}>
+                            <Text style={{color:"white",fontSize:16}}>Genre:</Text>
+                            {genres?.map((genre,index) => (
+                                <Text key={index} style={{color:"#acadad",fontSize:16,marginHorizontal:5}}>{genre.name}</Text>
+                                ))}
+                        </ScrollView>
+                    )}
                     <ScrollView horizontal style={{flexDirection:"row"}}>
-                        <Text style={{color:"white",fontSize:18}}>Genre:</Text>
-                        {genres?.map((genre,index) => (
-                            <Text key={index} style={{color:"#acadad",fontSize:18,marginHorizontal:5}}>{genre.name}</Text>
-                            ))}
-                    </ScrollView>
-                    <ScrollView horizontal style={{flexDirection:"row"}}>
-                        <Text style={{color:"white",fontSize:16}}>Languages:</Text>
-                        {spoken_languages?.map((lang,index) => (
-                            <Text key={index} style={{color:"#acadad",fontSize:16,marginHorizontal:5}}>{lang.english_name}</Text>
-                            ))}
+                        {spoken_languages?.length>0 && 
+                            (
+                                <>
+                                    <Text style={{color:"white",fontSize:16}}>Languages:</Text>
+                                    {spoken_languages?.map((lang,index) => (
+                                        <Text key={index} style={{color:"#acadad",fontSize:16,marginHorizontal:5}}>{lang.english_name}</Text>
+                                    ))}
+                                </>
+                            )
+                        }
                     </ScrollView>
                     <View style={{flexDirection:"column"}}>
-                        <Text style={{color:"white",fontSize:18}}>Overview:</Text>
-                        <Text style={{color:"#acadad",fontSize:18}}>{movie.overview}</Text>
+                        <Text style={{color:"white",fontSize:16}}>Overview:</Text>
+                        <Text style={{color:"#acadad",fontSize:14}}>{movie.overview}</Text>
                     </View>
-                    <Text style={{color:"white",fontSize:16}}>Vote Average: {movie.vote_average}</Text>
-                    <Text style={{color:"white",fontSize:16}}>Duration: {movie.runtime}min</Text>
+                    <Text style={{color:"white",fontSize:14}}>Vote Average: {movie.vote_average}</Text>
+                    <Text style={{color:"white",fontSize:14}}>Duration: {movie.runtime}min</Text>
                 </View>
             </ScrollView>
     )

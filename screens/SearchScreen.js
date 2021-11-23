@@ -4,7 +4,7 @@ import { API_KEY } from '../axios/requests'
 import SearchItem from '../components/SearchItem'
 
 const SearchScreen = () => {
-    const [search,setSearch] = useState()
+    const [search,setSearch] = useState('')
     const [resultMovies,setResultMovies] = useState([])
     console.log(search)
     console.log(resultMovies)
@@ -30,7 +30,7 @@ const SearchScreen = () => {
             {resultMovies?.length > 0 ? (
                     <FlatList 
                         data={resultMovies}
-                        renderItem={({item}) => item.title!=="UNdefined" ? (<SearchItem image={item?.poster_path} name={item.name || item.original_name || item.original_title}/>) : (<Text>No Results</Text>)}
+                        renderItem={({item}) => item.title!=="UNdefined" ? (<SearchItem image={item?.poster_path} id={item.id} name={item.name || item.original_name || item.original_title}/>) : (<Text>No Results</Text>)}
                         keyExtractor={item => item.id.toString()}
                         numColumns={2}
                         contentContainerStyle={{alignItems: "center",marginVertical:10}}
