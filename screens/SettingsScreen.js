@@ -3,9 +3,11 @@ import { Image } from "react-native";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 // import {useUpdateTheme} from '../context/ThemeProvider'
 import { MaterialIcons } from "react-native-vector-icons";
-import { auth } from "../firebase";
+import useAuth from "../context/useAuth";
 
 const SettingsScreen = () => {
+  const { signOutHandler } = useAuth();
+
   const data = [
     {
       text: "View Profile",
@@ -30,7 +32,7 @@ const SettingsScreen = () => {
   const signOutHandle = (text) => {
     try {
       if (text === "Logout") {
-        auth.signOut();
+        signOutHandler();
       } else {
         Alert.alert(text);
       }
@@ -50,13 +52,11 @@ const SettingsScreen = () => {
           borderColor: "white",
           borderRadius: 80,
           padding: 5,
-          marginVertical:20,
+          marginVertical: 20,
         }}
       >
         <Image
-          source={{
-            uri: "https://avatars.githubusercontent.com/u/52703087?v=4",
-          }}
+          source={require("../assets/userImg.png")}
           style={{ height: "100%", width: "100%", borderRadius: 70 }}
         />
       </View>

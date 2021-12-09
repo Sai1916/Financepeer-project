@@ -13,8 +13,11 @@ import SearchScreen from "./screens/SearchScreen";
 import DownloadsScreen from "./screens/DownloadsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import { firebase } from "./firebase";
+import { auth, firebase } from "./firebase";
 import ChatScreen from "./screens/ChatScreen";
+import AddChatScreen from "./screens/AddChatScreen";
+import useAuth, { AuthProvider } from "./context/useAuth";
+import UserChatScreen from "./screens/UserChatScreen";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -32,7 +35,7 @@ export default function App() {
             marginHorizontal: 12,
           },
           tabBarStyle: {
-            paddingVertical:2,
+            paddingVertical: 2,
           },
         }}
       >
@@ -48,7 +51,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Chat"
-          component={ChatScreen}
+          component={ChatStack}
           options={{
             tabBarIcon: ({ color }) => (
               <Ionicons
@@ -57,6 +60,7 @@ export default function App() {
                 color={color}
               />
             ),
+            headerShown: false,
           }}
         />
         <Tab.Screen
@@ -128,6 +132,15 @@ export default function App() {
       </Stack.Navigator>
     );
   };
+  const ChatStack = () => {
+    return (
+      <Stack.Navigator initialRouteName="Chats">
+        <Stack.Screen name="Chats" component={ChatScreen} />
+        <Stack.Screen name="AddChat" component={AddChatScreen} />
+        <Stack.Screen name="UserChat" component={UserChatScreen} />
+      </Stack.Navigator>
+    );
+  };
 
   const LoginStack = () => {
     return (
@@ -150,10 +163,13 @@ export default function App() {
     );
   };
 
+  // const { user, userEmail } = useAuth();
+  // console.log(user, userEmail, "in App");
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
       } else {
@@ -165,9 +181,15 @@ export default function App() {
     };
   }, []);
 
+  const AppNavigator = () => {
+    return <>{user ? <LoggedInStack /> : <LoginStack />}</>;
+  };
+
   return (
     <NavigationContainer theme={DarkTheme}>
-      {user ? <LoggedInStack /> : <LoginStack />}
+      <AuthProvider>
+        <AppNavigator />
+      </AuthProvider>
       <StatusBar style="light" />
     </NavigationContainer>
   );
