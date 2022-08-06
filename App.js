@@ -25,7 +25,7 @@ export default function App() {
   const LoggedInStack = () => {
     return (
       <Tab.Navigator
-        initialRouteName="Login"
+        //initialRouteName="Login"
         screenOptions={{
           tabBarShowLabel: false,
           tabBarActiveBackgroundColor: "#8987ff",
@@ -34,9 +34,9 @@ export default function App() {
             borderRadius: 50,
             marginHorizontal: 12,
           },
-          tabBarStyle: {
-            paddingVertical: 2,
-          },
+          // tabBarStyle: {
+          //   paddingVertical: 2,
+          // },
         }}
       >
         <Tab.Screen

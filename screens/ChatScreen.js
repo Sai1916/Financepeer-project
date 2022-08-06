@@ -9,12 +9,17 @@ const ChatScreen = ({ navigation }) => {
   const [dbchats, setDBChats] = useState([]);
   useEffect(() => {
     return db.collection("chats").onSnapshot((snapshot) => {
-      setDBChats(snapshot.docs.map((doc) => doc.data()));
+      setDBChats(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
     });
   }, []);
 
   const chats = dbchats.filter(
-    (chat) => chat.users[0] === auth.currentUser.email
+    (chat) => chat.data.users[0] === auth.currentUser.email
   );
 
   console.log(chats);
@@ -44,11 +49,12 @@ const ChatScreen = ({ navigation }) => {
               activeOpacity={0.7}
               onPress={() =>
                 navigation.push("UserChat", {
-                  email: chat.users[1],
+                  chatId: chat.id,
+                  data: chat.data,
                 })
               }
             >
-              <ChatListItem id={chat.id} users={chat.users} />
+              <ChatListItem id={chat.id} users={chat?.data?.users} />
             </TouchableOpacity>
           ))}
         </ScrollView>
